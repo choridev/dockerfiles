@@ -2,7 +2,9 @@
 FROM node:20.17.0
 
 # 2. 패키지 업데이트 및 필요 패키지 설치
-RUN apt-get update && apt-get install -y zsh \
+RUN apt-get update && apt-get install -y \
+    zsh \
+    vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

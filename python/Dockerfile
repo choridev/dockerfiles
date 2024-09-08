@@ -1,8 +1,10 @@
-# 1. 베이스 이미지로 ython 사용 (Debian)
+# 1. 베이스 이미지로 python 사용 (Debian)
 FROM python:3.12.5
 
-# 2. 패키지 업데이트 및 zsh 설치
-RUN apt-get update && apt-get install -y zsh \
+# 2. 패키지 업데이트 및 필요 패키지 설치
+RUN apt-get update && apt-get install -y \
+    zsh \
+    vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

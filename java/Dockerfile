@@ -4,6 +4,7 @@ FROM eclipse-temurin:17
 # 2. 패키지 업데이트 및 필요 패키지 설치
 RUN apt-get update && apt-get install -y \
     zsh \
+    vim \
     git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
