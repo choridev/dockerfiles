@@ -23,19 +23,23 @@ ENV LC_ALL=ko_KR.UTF-8
 RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
 
-# 6. Oh My Zsh 및 플러그인 설치
+# 6. Git 기본 브랜치와 에디터 관련 설정
+RUN git config --global core.editor vim
+RUN git config --global init.defaultBranch main
+
+# 7. Oh My Zsh 및 플러그인 설치
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# 7. zsh 설정: 플러그인 추가
+# 8. zsh 설정: 플러그인 추가
 RUN sed -i 's/^plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions)/' ~/.zshrc
 
-# 8. 작업 디렉토리 설정
+# 9. 작업 디렉토리 설정
 WORKDIR /workspace
 
-# 9. 기본 셸을 zsh로 변경
+# 10. 기본 셸을 zsh로 변경
 RUN chsh -s $(which zsh) 
 
-# 10. zsh를 기본 셸로 설정
+# 11. zsh를 기본 셸로 설정
 ENTRYPOINT ["zsh"]
