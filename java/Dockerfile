@@ -4,6 +4,7 @@ FROM eclipse-temurin:17
 # 2. 패키지 업데이트 및 필요 패키지 설치
 RUN apt-get update && apt-get install -y \
     zsh \
+    language-pack-ko \
     locales \
     vim \
     git \
@@ -11,18 +12,16 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 3. 로케일 설정 (한글 UTF-8 지원)
-RUN echo "ko_KR.UTF-8 UTF-8" >> /etc/locale.gen && \
-    locale-gen && \
-    update-locale LANG=ko_KR.UTF-8
+RUN locale-gen ko_KR.UTF-8
 
-# 4. 시간대 설정 (한국 시간)
-RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
-
-# 5. 환경 변수 설정 (로케일)
+# 4. 환경 변수 설정 (로케일)
 ENV LANG=ko_KR.UTF-8
 ENV LANGUAGE=ko_KR:ko
 ENV LC_ALL=ko_KR.UTF-8
+
+# 5. 시간대 설정 (한국 시간)
+RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 # 6. Oh My Zsh 및 플러그인 설치
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
