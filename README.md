@@ -19,7 +19,7 @@ git clone https://github.com/ChoriDev/dockerfiles.git
 
 ``` shell
 cd python
-docker build -t python3.12 .
+docker build -t python:3.12 .
 ```
 
 3. 볼륨 생성
@@ -27,7 +27,7 @@ docker build -t python3.12 .
 도커 컨테이너와 연결할 볼륨을 생성합니다.
 
 ``` shell
-docker volume create python3.12
+docker volume create python
 ```
 
 4. 도커 컨테이너 생성
@@ -35,7 +35,7 @@ docker volume create python3.12
 도커 이미지를 사용하여 도커 컨테이너를 생성합니다.
 
 ``` shell
-docker create -it -v python3.12:/workspace --name python3.12 python3.12 
+docker create -it -v python:/workspace --name python python:3.12
 ```
 
 5. Docker Desktop에서 표시된 컨테이너를 시작합니다.
