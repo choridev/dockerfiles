@@ -19,7 +19,7 @@ git clone https://github.com/ChoriDev/dockerfiles.git
 
 ``` shell
 cd python
-docker build -t python:3.12 .
+docker build -t python:3.12.5 .
 ```
 
 3. 볼륨 생성
