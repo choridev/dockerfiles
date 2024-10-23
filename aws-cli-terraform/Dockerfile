@@ -57,11 +57,14 @@ RUN sed -i 's/^plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosugges
 # 12. zsh 테마를 ys로 변경
 RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/' ~/.zshrc
 
-# 13. 작업 디렉토리 설정
+# 13. vim 설정 적용
+RUN echo "set hlsearch\nset nu\nset ts=4\nset sts=4\nset sw=4\nset title\nset autoindent" > ~/.vimrc
+
+# 14. 작업 디렉토리 설정
 WORKDIR /workspace
 
-# 14. 기본 셸을 zsh로 변경
+# 15. 기본 셸을 zsh로 변경
 RUN chsh -s $(which zsh) 
 
-# 15. zsh를 기본 셸로 설정
+# 16. zsh를 기본 셸로 설정
 ENTRYPOINT ["zsh"]
