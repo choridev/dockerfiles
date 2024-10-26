@@ -58,7 +58,7 @@ RUN sed -i 's/^plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosugges
 RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/' ~/.zshrc
 
 # 13. vim 설정 적용
-RUN echo "set hlsearch\nset nu\nset ts=4\nset sts=4\nset sw=4\nset title\nset autoindent" > ~/.vimrc
+RUN echo "set hlsearch\nset nu\nset ts=2\nset sts=2\nset sw=2\nset title\nset autoindent" > ~/.vimrc
 
 # 14. 작업 디렉토리 설정
 WORKDIR /workspace
