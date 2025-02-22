@@ -15,8 +15,6 @@ RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/shar
 RUN apt-get update && apt-get install -y \
     curl \
     zsh \
-    # language-pack-ko \
-    # locales \
     vim \
     git \
     terraform \
@@ -39,41 +37,33 @@ RUN ARCH=$(uname -m) && \
     ./aws/install && \
     rm -rf awscliv2.zip aws/
 
-# # 6. Set locale (Korean UTF-8 support)
-# RUN locale-gen ko_KR.UTF-8
-
-# # 7. Set environment variables (locale)
-# ENV LANG=ko_KR.UTF-8
-# ENV LANGUAGE=ko_KR:ko
-# ENV LC_ALL=ko_KR.UTF-8
-
-# 8. Set timezone (Korean time)
+# 6. Set timezone (Korean time)
 RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
 
-# 9. Configure Git default branch and editor settings
+# 7. Configure Git default branch and editor settings
 RUN git config --global core.editor vim
 RUN git config --global init.defaultBranch main
 
-# 10. Install Oh My Zsh and plugins
+# 8. Install Oh My Zsh and plugins
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# 11. Add plugins
+# 9. Add plugins
 RUN sed -i 's/^plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions)/' ~/.zshrc
 
-# 12. Change zsh theme to zhann
+# 10. Change zsh theme to zhann
 RUN sed -i 's/^ZSH_THEME=.*/ZSH_THEME="zhann"/' ~/.zshrc
 
-# 13. Apply vim settings
+# 11. Apply vim settings
 RUN echo "set hlsearch\nset nu\nset ts=2\nset sts=2\nset sw=2\nset title\nset autoindent" > ~/.vimrc
 
-# 14. Set working directory
+# 12. Set working directory
 WORKDIR /workspace
 
-# 15. Change default shell to zsh
+# 13. Change default shell to zsh
 RUN chsh -s $(which zsh) 
 
-# 16. Set zsh as default shell
+# 14. Set zsh as default shell
 ENTRYPOINT ["zsh"]
