@@ -10,7 +10,7 @@
 1. 레포지토리 클론
 
 ``` shell
-git clone https://github.com/ChoriDev/dockerfiles.git
+git clone https://github.com/choridev/dockerfiles.git
 ```
 
 2. 도커 이미지 빌드
@@ -19,7 +19,7 @@ git clone https://github.com/ChoriDev/dockerfiles.git
 
 ``` shell
 cd python
-docker build -t python:3.12.5 .
+docker build -t choridev/python:3.12.5 ./
 ```
 
 3. 볼륨 생성
@@ -35,7 +35,7 @@ docker volume create python
 도커 이미지를 사용하여 도커 컨테이너를 생성합니다.
 
 ``` shell
-docker create -it -v python:/workspace --name python python:3.12
+docker create -it -v python:/workspace --name python choridev/python:3.12.5
 ```
 
 5. Docker Desktop에서 표시된 컨테이너를 시작합니다.
