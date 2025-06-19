@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     vim \
     git \
     terraform \
-    golang \
+    golang-go \
     zip \
     unzip \
     jq \
