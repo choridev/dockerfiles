@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y \
     vim \
     git \
     terraform \
+    python3 \
+    python3-pip \
     golang-go \
     zip \
     unzip \
