@@ -41,33 +41,46 @@ RUN ARCH=$(uname -m) && \
     ./aws/install && \
     rm -rf awscliv2.zip aws/
 
-# 6. Set timezone (Korean time)
+# 6. Install Session Manager Plugin for ECS Exec
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "x86_64" ]; then \
+        SSM_PLUGIN_URL="https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb"; \
+    elif [ "$ARCH" = "aarch64" ]; then \
+        SSM_PLUGIN_URL="https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_arm64/session-manager-plugin.deb"; \
+    else \
+        echo "Unsupported architecture for Session Manager Plugin: $ARCH" && exit 1; \
+    fi && \
+    curl -L "$SSM_PLUGIN_URL" -o "session-manager-plugin.deb" && \
+    dpkg -i session-manager-plugin.deb && \
+    rm session-manager-plugin.deb
+
+# 7. Set timezone (Korean time)
 RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
 
-# 7. Configure Git default branch and editor settings
+# 8. Configure Git default branch and editor settings
 RUN git config --global core.editor vim
 RUN git config --global init.defaultBranch main
 
-# 8. Install Oh My Zsh and plugins
+# 9. Install Oh My Zsh and plugins
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# 9. Add plugins
+# 10. Add plugins
 RUN sed -i 's/^plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions)/' ~/.zshrc
 
-# 10. Change zsh theme to zhann
+# 11. Change zsh theme to zhann
 RUN sed -i 's/^ZSH_THEME=.*/ZSH_THEME="zhann"/' ~/.zshrc
 
-# 11. Apply vim settings
+# 12. Apply vim settings
 RUN echo "set hlsearch\nset nu\nset ts=2\nset sts=2\nset sw=2\nset title\nset autoindent" > ~/.vimrc
 
-# 12. Set working directory
+# 13. Set working directory
 WORKDIR /workspace
 
-# 13. Change default shell to zsh
+# 14. Change default shell to zsh
 RUN chsh -s $(which zsh) 
 
-# 14. Set zsh as default shell
+# 15. Set zsh as default shell
 ENTRYPOINT ["zsh"]
