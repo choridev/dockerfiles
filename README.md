@@ -35,7 +35,7 @@ docker volume create python
 도커 이미지를 사용하여 도커 컨테이너를 생성합니다.
 
 ``` shell
-docker create -it -v python:/workspace --name python choridev/python:3.12.5
+docker create -v python:/workspace --name python choridev/python:3.12.5
 ```
 
 5. Docker Desktop에서 표시된 컨테이너를 시작합니다.
