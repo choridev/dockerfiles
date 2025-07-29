@@ -43,4 +43,4 @@ WORKDIR /workspace
 RUN chsh -s $(which zsh)
 
 # 12. Set zsh as default shell
-ENTRYPOINT ["zsh"]
+CMD ["zsh"]
