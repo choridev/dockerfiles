@@ -44,5 +44,5 @@ WORKDIR /workspace
 # 11. Change default shell to zsh
 RUN chsh -s $(which zsh) 
 
-# 12. Set zsh as default shell
-ENTRYPOINT ["zsh"]
+# 12. Keep container alive
+CMD ["sleep", "infinity"]
