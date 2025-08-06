@@ -35,8 +35,8 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 # 8. Add plugins
 RUN sed -i 's/^plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions)/' ~/.zshrc
 
-# 9. Change zsh theme to zhann
-RUN sed -i 's/^ZSH_THEME=.*/ZSH_THEME="zhann"/' ~/.zshrc
+# 9. Change zsh theme to ys
+RUN sed -i 's/^ZSH_THEME=.*/ZSH_THEME="ys"/' ~/.zshrc
 
 # 10. Set working directory
 WORKDIR /workspace
